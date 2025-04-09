@@ -14,6 +14,6 @@ Projeto desenvolvido na disciplina de Projeto Integrador, junto a matéria de Pr
     </tr>
     <tr>
         <th>Caio Silveira</th>
-        <th>.</th>
+        <th>Caiorem</th>
     </tr>
 </table>
