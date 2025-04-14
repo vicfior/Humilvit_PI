@@ -4,7 +4,7 @@ import {createStackNavigator} from "@react-navigation/stack";
 
 import Home from "./pages/Home";
 import Notification from "./pages/Notification";
-import Signal from "./pages/Signal";
+import RoutePlan from "./pages/RoutePlan";
 
 const Stack = createStackNavigator();
 
@@ -22,8 +22,8 @@ function Routes() {
                 component={Notification}
                 />
                 <Stack.Screen
-                name="Signal"
-                component={Signal}
+                name="RoutePlan"
+                component={RoutePlan}
                 />
             </Stack.Navigator>
         </NavigationContainer>
