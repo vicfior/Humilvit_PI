@@ -20,10 +20,12 @@ function Routes() {
                 <Stack.Screen
                 name="Notification"
                 component={Notification}
+                options={{headerShown: false}}
                 />
                 <Stack.Screen
                 name="RoutePlan"
                 component={RoutePlan}
+                options={{headerShown: false}}
                 />
             </Stack.Navigator>
         </NavigationContainer>
