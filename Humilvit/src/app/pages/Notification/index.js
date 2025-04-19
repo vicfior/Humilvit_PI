@@ -1,9 +1,12 @@
-import React from "react";
-import { View, Text, Animated, TouchableOpacity, Switch, Button } from "react-native";
+import React, {useState} from "react";
+import { View, Text, TouchableOpacity, Switch } from "react-native";
 import Icon from 'react-native-vector-icons/Ionicons';
 import styles from "../../../components/styles";
 
 export default function Notification ({onClose}) {
+  const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+  
   return (
     <View style={styles.drawer}>
       <View style={styles.drawerHeader}>
@@ -21,9 +24,15 @@ export default function Notification ({onClose}) {
             <Text style={styles.buttonText}>OFF</Text>
           </TouchableOpacity>
         </View>
-        <View style={styles.lineIndicatorDrawer2}></View> 
+        <View style={styles.lineIndicatorDrawer2}></View>
         <Text style={styles.drawerBodyText}>Desativar alertas da próxima parada</Text>
-        
+        <Switch
+          trackColor={{false: '#555555', true: '#555555'}}
+          thumbColor={isEnabled ? '#0888D8' : '#f4f3f4'}
+          onValueChange={toggleSwitch}
+          value={isEnabled}
+          style={styles.switchLarge}
+        />
       </View>
     </View>
   );

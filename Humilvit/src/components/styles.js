@@ -145,4 +145,38 @@ export default StyleSheet.create({
         alignSelf: 'center',
         marginTop: 25,
     },
+    switchContainer: {
+        flexDirection: 'row',
+    },
+    switchLarge: {
+        alignSelf: 'flex-start',
+        marginLeft: 20,
+        transform: [{ scaleX: 1.2 }, { scaleY: 1.2 }],
+    },
+
+    //PlanTrip
+    modal: {
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        backgroundColor: '#2F2E2E',
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+        padding: 20,
+        height:'715'
+    },
+    modalStyle: {
+        width: 77,
+        height: 5,
+        backgroundColor: '#555555',
+        alignSelf: 'center',
+        borderRadius: 3,
+        marginBottom: 10
+    },
+
+    textTrip: {
+        color: '#FFFFFF',
+
+    }
 });
