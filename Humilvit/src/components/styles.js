@@ -177,6 +177,93 @@ export default StyleSheet.create({
 
     textTrip: {
         color: '#FFFFFF',
-
+    },
+    input: {
+        color: '#FFFFFF',
+        marginLeft: 6,
+    },
+    inputContainer: {
+        backgroundColor: '#555555',
+        borderRadius: 25,
+        padding: 5,
+        marginTop: 10,
+        marginBottom: 2,
+        flexDirection: 'row',
+    },
+    iconInput: {
+        marginTop: 10,
+        marginRight: -3,
+        marginLeft: 10,
+    },
+    tripContainer: {
+        backgroundColor: '#212121',
+        width: 321,
+        height: 320,
+        borderRadius: 25,
+        marginTop: 20,
+        marginBottom: 2,
+    },
+    line: {
+        height: 1,
+        backgroundColor: '#555555',
+        width: 321,
+        marginTop: 10
+    },
+    textContainer: {
+        marginTop: 15,
+        marginLeft: 20,
+        color: "#606060"
+    },
+    textContainer1: {
+        marginTop: 15,
+        marginLeft: 20,
+        color: "#0888D8",
+        fontWeight: 'bold'
+    },
+    text: {
+        marginTop: 2,
+        marginLeft: 20,
+        color: "#ffffff"
+    },
+    lineShort: {
+        height: 1,
+        backgroundColor: '#555555',
+        width: 290,
+        marginTop: 10,
+        alignSelf: 'center'
+    },
+    title: {
+        color: "#0888D8",
+        fontWeight: 'bold',
+        marginTop: 2,
+    },
+    textInfo: {
+        flexDirection: 'row',
+        marginTop: 20,
+        marginBottom: 20,
+        marginLeft: 20,
+        marginRight: 20
+    },
+    lineShort1: {
+        height: 1,
+        backgroundColor: '#555555',
+        width: 290,
+        alignSelf: 'center',
+        marginTop: -10,
+    },
+    bottomTripContainer: {
+        backgroundColor: '#212121',
+        width: 360,
+        height: 250,
+        alignSelf: 'center',
+        marginTop: 25,
+    },
+    line2: {
+        height: 1,
+        backgroundColor: '#555555',
+        width: 320,
+        alignSelf: 'center',
+        marginTop: 10,
+        marginBottom: -5,
     }
 });
