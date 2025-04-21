@@ -164,7 +164,8 @@ export default StyleSheet.create({
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
         padding: 20,
-        height:'715'
+        minHeight: 200, // ou um valor base
+        maxHeight: '90%',
     },
     modalStyle: {
         width: 77,
@@ -181,6 +182,7 @@ export default StyleSheet.create({
     input: {
         color: '#FFFFFF',
         marginLeft: 6,
+        width: 200
     },
     inputContainer: {
         backgroundColor: '#555555',
@@ -189,6 +191,8 @@ export default StyleSheet.create({
         marginTop: 10,
         marginBottom: 2,
         flexDirection: 'row',
+        width: 321,
+        alignSelf: 'center',
     },
     iconInput: {
         marginTop: 10,
@@ -198,10 +202,11 @@ export default StyleSheet.create({
     tripContainer: {
         backgroundColor: '#212121',
         width: 321,
-        height: 320,
+        height: 300,
         borderRadius: 25,
         marginTop: 20,
         marginBottom: 2,
+        alignSelf: 'center',
     },
     line: {
         height: 1,
@@ -242,7 +247,8 @@ export default StyleSheet.create({
         marginTop: 20,
         marginBottom: 20,
         marginLeft: 20,
-        marginRight: 20
+        marginRight: 20,
+        height: 20
     },
     lineShort1: {
         height: 1,
@@ -253,8 +259,8 @@ export default StyleSheet.create({
     },
     bottomTripContainer: {
         backgroundColor: '#212121',
-        width: 360,
-        height: 250,
+        width: '100%',
+        height: 200,
         alignSelf: 'center',
         marginTop: 25,
     },
@@ -265,5 +271,11 @@ export default StyleSheet.create({
         alignSelf: 'center',
         marginTop: 10,
         marginBottom: -5,
+    },
+    containerScroll: {
+        flex: 1,
+        backgroundColor: '#2F2E2E',
+        width: 357,
+        alignSelf: 'center',
     }
 });
