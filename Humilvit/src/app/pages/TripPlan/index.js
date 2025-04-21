@@ -4,10 +4,13 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import styles from "../../../components/styles";
 import Icon from 'react-native-vector-icons/Ionicons';
 
+import { useNavigation } from "@react-navigation/native";
+
 export default function TripPlan() {
 
     const [text, onChangeText] = React.useState('Origem');
     const [texto, onText] = React.useState('Destino');
+    const navigation = useNavigation();
 
     return (
     <KeyboardAwareScrollView
@@ -37,6 +40,11 @@ export default function TripPlan() {
                     placeholder="Destino"
                     placeholderTextColor="#999"
                 />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("Viagem")}>
+                <View style={styles.buttonTrip}>
+                    <Text style={styles.buttonText}>Rotas</Text>
+                </View>
             </TouchableOpacity>
             <View style={styles.tripContainer}>
                 <Text style={styles.textContainer}>Estação mais próxima</Text>

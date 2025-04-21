@@ -4,7 +4,6 @@ import { StyleSheet, Text, View } from 'react-native';
 import Routes from './router';
 import { useFonts, Roboto_400Regular, Roboto_600SemiBold, Roboto_700Bold  } from '@expo-google-fonts/roboto';
 import AppLoading from 'expo-app-loading';
-import { NavigationContainer } from '@react-navigation/native';
 
 
 export default function App() {

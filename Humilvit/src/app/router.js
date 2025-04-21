@@ -3,7 +3,8 @@ import {NavigationContainer} from "@react-navigation/native";
 import {createStackNavigator} from "@react-navigation/stack";
 
 import Home from "./pages/Home";
-import Notification from "./pages/Notification";
+import Viagem from "./pages/TripPlan/Viagem";
+import ActiveTrip from "./pages/TripPlan/ActiveTrip";
 import TripPlan from "./pages/TripPlan";
 
 const Stack = createStackNavigator();
@@ -18,13 +19,13 @@ function Routes() {
                 options={{headerShown: false}}
                 />
                 <Stack.Screen
-                name="Notification"
-                component={Notification}
+                name="Viagem"
+                component={Viagem}
                 options={{headerShown: false}}
                 />
                 <Stack.Screen
-                name="TripPlan"
-                component={TripPlan}
+                name="ActiveTrip"
+                component={ActiveTrip}
                 options={{headerShown: false}}
                 />
             </Stack.Navigator>
