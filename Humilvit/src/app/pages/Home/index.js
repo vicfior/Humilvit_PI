@@ -11,7 +11,7 @@ import {
   } from "react-native";
 import Icon from 'react-native-vector-icons/Ionicons';
 //páginas
-import styles from "../../../components/styles";
+import styles from "./styles";
 import Notification from "../Notification";
 import TripPlan from "../TripPlan"
 
@@ -109,16 +109,10 @@ export default function Home({navigation}) {
                 animationType="none"
                 onRequestClose={closeModal}
             >
-                <TouchableOpacity
-                style={{ flex: 1, backgroundColor: '#rgba(0,0,0,0.5)' }}
-                activeOpacity={1}
-                onPress={closeModal}
-                >
                 <Animated.View style={[styles.modal, { transform: [{ translateY: panY }] }]}  {...panResponder.panHandlers}>
                     <View style={styles.modalStyle} />
                     <TripPlan />
                 </Animated.View>
-                </TouchableOpacity>
             </Modal>
         </>
     );  

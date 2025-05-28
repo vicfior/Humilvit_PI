@@ -5,7 +5,7 @@ import {
     ImageBackground,
     TouchableOpacity,
   } from "react-native";
-import styles from "../../../components/styles";
+import styles from "../Home/styles";
 import { useNavigation } from "@react-navigation/native";
 
 const image = require("../../../images/mapa_rotas.png");

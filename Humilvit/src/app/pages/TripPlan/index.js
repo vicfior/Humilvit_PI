@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, TouchableOpacity, Platform, TextInput } from "react-native";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import styles from "../../../components/styles";
+import styles from "../Home/styles";
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import { useNavigation } from "@react-navigation/native";

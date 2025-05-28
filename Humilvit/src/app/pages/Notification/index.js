@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import { View, Text, TouchableOpacity, Switch } from "react-native";
 import Icon from 'react-native-vector-icons/Ionicons';
-import styles from "../../../components/styles";
+import styles from "../Notification/styles";
 
 export default function Notification ({onClose}) {
   const [isEnabled, setIsEnabled] = useState(false);

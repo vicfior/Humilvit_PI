@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
-import styles from '../../../components/styles'; // Se estiver usando um styles central
+import styles from '../Home/styles'; // Se estiver usando um styles central
 import { useNavigation } from '@react-navigation/native';
 
 const imagensParadas = [
