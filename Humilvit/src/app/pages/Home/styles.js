@@ -53,7 +53,7 @@ export default StyleSheet.create({
         marginRight: 10,
     },
     buttonText: {
-        color: '#aaa',
+        color: '#fff',
         fontSize: 16,
     },
     lineIndicatior: {

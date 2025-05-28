@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Viagem from "./pages/TripPlan/Viagem";
 import ActiveTrip from "./pages/TripPlan/ActiveTrip";
 import TripPlan from "./pages/TripPlan";
+import Mapa from "./pages/Map";
 
 const Stack = createStackNavigator();
 
@@ -26,6 +27,11 @@ function Routes() {
                 <Stack.Screen
                 name="ActiveTrip"
                 component={ActiveTrip}
+                options={{headerShown: false}}
+                />
+                <Stack.Screen
+                name="Mapa"
+                component={Mapa}
                 options={{headerShown: false}}
                 />
             </Stack.Navigator>

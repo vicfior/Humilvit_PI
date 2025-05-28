@@ -14,6 +14,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import styles from "./styles";
 import Notification from "../Notification";
 import TripPlan from "../TripPlan"
+import Mapa from "../Map"
 
 const image = require("../../../images/Mapa.png");
 
@@ -81,9 +82,10 @@ export default function Home({navigation}) {
             drawerPosition="left"
             renderNavigationView={renderNavigationView}
             >
-                <View style={styles.container}> 
-                    <ImageBackground source={image} resizeMode="cover" style={styles.imageBackground}>
-                        
+                <View style={styles.container}>
+                    <View style={styles.imageBackground}>
+                        <Mapa/>
+                    </View>
                         <View style={styles.notificationContainer}>
                             <TouchableOpacity style={styles.notificationButton} onPress={openDrawer}>
                                 <Icon name="notifications-circle-outline" size={35} style={styles.iconNotification}/>
@@ -97,23 +99,32 @@ export default function Home({navigation}) {
                                 <Text style={styles.buttonText}>Planeje uma viagem</Text>
                             </TouchableOpacity>
                         </View>
-                    
-                    </ImageBackground>
                 </View>
             </DrawerLayoutAndroid>
 
-            {/* Modal deslizante com gesto para fechar */}
             <Modal
                 visible={modalVisible}
                 transparent={true}
                 animationType="none"
                 onRequestClose={closeModal}
             >
-                <Animated.View style={[styles.modal, { transform: [{ translateY: panY }] }]}  {...panResponder.panHandlers}>
-                    <View style={styles.modalStyle} />
-                    <TripPlan />
-                </Animated.View>
+                <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0)' }}>
+                    <TouchableOpacity
+                        style={{ flex: 1 }}
+                        activeOpacity={1}
+                        onPress={closeModal}
+                    />
+                    <Animated.View
+                        style={[styles.modal, { transform: [{ translateY: panY }] }]}
+                        {...panResponder.panHandlers}
+                    >
+                        <View style={styles.modalStyle} />
+                        <TripPlan />
+                    </Animated.View>
+                </View>
             </Modal>
         </>
+
+        
     );  
 }
