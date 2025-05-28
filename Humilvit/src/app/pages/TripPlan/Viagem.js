@@ -7,8 +7,7 @@ import {
   } from "react-native";
 import styles from "../Home/styles";
 import { useNavigation } from "@react-navigation/native";
-
-const image = require("../../../images/mapa_rotas.png");
+import Mapa from "../Map"
 
 export default function Viagem() {
 
@@ -18,8 +17,9 @@ export default function Viagem() {
 
     return (
         <View style={styles.container}>
-            <ImageBackground source={image} resizeMode="cover" style={styles.imageBackground}>
-            </ImageBackground>
+            <View style={[styles.imageBackground, { flex: 1, minHeight: 300 }]}>
+                <Mapa/>
+            </View>
 
             <View style={styles.viagemInfo}>
                 <View style={styles.textViagem}>
