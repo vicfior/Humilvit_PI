@@ -151,18 +151,16 @@ const Mapa = () => {
               longitudeDelta: 0.01,
             }}
           >
-            {/* OpenStreetMap tile */}
             <UrlTile
               urlTemplate="http://c.tile.openstreetmap.org/{z}/{x}/{y}.png"
               maximumZ={19}
               flipY={false}
             />
 
-            {/* Origem (cinza) */}
             <Marker
               coordinate={origin}
               title="Você está aqui"
-              pinColor="#808080"
+              pinColor="gray"
             />
 
             {/* Destino (verde) */}
@@ -171,7 +169,7 @@ const Mapa = () => {
               title="Destino"
               draggable
               onDragEnd={handleDestinationDrag}
-              pinColor="#32CD32"
+              pinColor="#0888D8"
             />
 
             {/* Linha da rota */}
@@ -179,7 +177,7 @@ const Mapa = () => {
               routeCoords.length > 0 && (
                 <Polyline
                   coordinates={routeCoords}
-                  strokeColor="#FF0000"
+                  strokeColor="#0835D8"
                   strokeWidth={4}
                 />
               )
