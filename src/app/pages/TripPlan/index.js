@@ -114,19 +114,28 @@ const routeCoordinatesB = [
                 <View style={styles.tripContainer}>
                     <Text style={styles.textContainer}>Estação mais próxima</Text>
                     <View style={styles.line}/>
-                    <Text style={styles.textContainer1}>Nome da estação</Text>
+                    <Text style={styles.textContainer1}>Terminal Taguatinga - Vicente Pires</Text>
                     {/* Removi a linha que causava o erro */}
                     <View style={styles.lineShort}/>
-                    {[1, 2, 3].map((_, i) => (
-                        <View key={i}>
+                        <View>
                             <View style={styles.textInfo}>
                                 <Text style={styles.title}>Num Onibus</Text>
                                 <Text style={styles.text}>Destino</Text>
                                 <Text style={styles.text}>Tempo</Text>
                             </View>
                             <View style={styles.lineShort1}/>
+                            <View style={styles.textInfo}>
+                                <Text style={styles.text}>01</Text>
+                                <Text style={styles.text}>Taguatinga</Text>
+                                <Text style={styles.text}>10 min</Text>
+                            </View>
+                            <View style={styles.lineShort1}/>
+                            <View style={styles.textInfo}>
+                                <Text style={styles.text}>02</Text>
+                                <Text style={styles.text}>Taguatinga</Text>
+                                <Text style={styles.text}>20 min</Text>
+                            </View>
                         </View>
-                    ))}
                 </View>
             </View>
         </KeyboardAwareScrollView>
