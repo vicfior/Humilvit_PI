@@ -214,16 +214,6 @@ export default function TripPlan() {
                         </View>
                     ))}
             </View>
-                <View style={styles.bottomTripContainer}>
-                    <Text style={styles.textContainer}>Acessos Recentes</Text>  
-                    {[1, 2].map((_, i) => (
-                    <View key={i}>
-                        <Text style={styles.textContainer1}>Local</Text>
-                        <Text style={styles.text}>Endereço</Text>
-                        <View style={styles.line2} />
-                    </View>
-                    ))} 
-                </View>
         </View>
     </KeyboardAwareScrollView> 
     );
