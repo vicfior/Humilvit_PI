@@ -6,14 +6,14 @@ import {
     TouchableOpacity,
   } from "react-native";
 import styles from "../Home/styles";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from '@react-navigation/native';
 import Mapa from "../Map"
 
 export default function Viagem() {
-
     const [iniciarPressionado, setIniciarPressionado] = useState(false);
     const [cancelarPressionado, setCancelarPressionado] = useState(false);
     const navigation = useNavigation();
+    const route = useRoute();
 
     return (
         <View style={styles.container}>
@@ -43,7 +43,12 @@ export default function Viagem() {
             </View>
             <View style={styles.viagemControl}>
                 <TouchableOpacity 
-                onPress={() => navigation.navigate("ActiveTrip")}
+                onPress={() => navigation.navigate("ActiveTrip", {
+                  origin: route.params?.origin,
+                  destination: route.params?.destination,
+                  waypoints: route.params?.waypoints,
+                  useCurrentLocation: false,
+                })}
                 onPressIn={() => setIniciarPressionado(true)}
                 onPressOut={() => setIniciarPressionado(false)}
                 style={[styles.viagemButton, iniciarPressionado && { backgroundColor: '#0888D8' }]}>

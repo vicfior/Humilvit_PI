@@ -304,4 +304,22 @@ export default StyleSheet.create({
         color: '#0888D8',
         fontWeight: 'bold',
       },
+      optionsContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 20,
+      },
+      optionButton: {
+        backgroundColor: '#0888D8',
+        padding: 10,
+        borderRadius: 9,
+        marginHorizontal: 10,
+        width: 90,
+      },
+      optionText: {
+        color: 'white',
+        fontWeight: 'bold',
+        textAlign: 'center',
+      }
 });

@@ -16,8 +16,6 @@ import Notification from "../Notification";
 import TripPlan from "../TripPlan"
 import Mapa from "../Map"
 
-const image = require("../../../images/Mapa.png");
-
 export default function Home({navigation}) {
     
     const drawerRef = useRef(null);

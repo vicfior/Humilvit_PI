@@ -1,7 +1,6 @@
 import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
-    //Notification
     drawer: {
         flex: 1,
         backgroundColor: '#2F2E2E',
