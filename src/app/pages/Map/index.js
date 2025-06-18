@@ -17,16 +17,15 @@ import {
 
 const ORS_API_KEY = '5b3ce3597851110001cf624843e18197109e4a16a1c5a5ca281e4cca';
 
-// --- Função auxiliar para parsear coordenadas ---
+// --- Função auxiliar para parsear coordenadas (já existente e ok) ---
 const parseCoords = (input) => {
   if (typeof input === 'string') {
     const parts = input.split(',').map(s => parseFloat(s.trim()));
     if (parts.length === 2 && !isNaN(parts[0]) && !isNaN(parts[1])) {
       return { latitude: parts[0], longitude: parts[1] };
     }
-    return null; // Retorna null se a string não for um formato válido de coordenada
+    return null;
   }
-  // Se já for um objeto com latitude e longitude, ou se for null/undefined, retorna como está
   if (input && typeof input.latitude === 'number' && typeof input.longitude === 'number') {
     return input;
   }
@@ -35,25 +34,24 @@ const parseCoords = (input) => {
 
 const Mapa = () => {
   const route = useRoute();
-  // Parseia os parâmetros de rota imediatamente
+  // Renomeando para evitar conflito com os estados locais
   const {
     origin: initialOriginParam,
     destination: initialDestinationParam,
+    waypoints: initialWaypointsParam = [], // Novo: para receber waypoints
     useCurrentLocation
   } = route.params || {};
 
-  // Inicializa os estados com as coordenadas parseadas
   const [origin, setOrigin] = useState(() => parseCoords(initialOriginParam));
   const [destination, setDestination] = useState(() => parseCoords(initialDestinationParam));
+  const [waypoints, setWaypoints] = useState(() => initialWaypointsParam.map(parseCoords).filter(Boolean)); // Novo: estado para waypoints
   const [routeCoords, setRouteCoords] = useState([]);
-  const [isOriginDragged, setIsOriginDragged] = useState(false); // Adicionado para controle de arrasto
+  const [isOriginDragged, setIsOriginDragged] = useState(false);
   const mapRef = useRef(null);
 
   // Lógica para obter a localização inicial do usuário ou usar a passada via props
   useEffect(() => {
     async function loadLocation() {
-      // Só obtém a localização atual se useCurrentLocation não for false E a origem não foi arrastada
-      // E a origem não foi fornecida via parâmetros de rota (ou não foi um formato válido)
       if (useCurrentLocation !== false && !isOriginDragged && !origin) {
         const { granted } = await requestForegroundPermissionsAsync();
         if (!granted) {
@@ -70,8 +68,7 @@ const Mapa = () => {
         console.log("Origem inicial (localização atual):", coords);
         setOrigin(coords);
 
-        // Se nenhum destino foi passado via props ou não foi válido, defina um destino padrão próximo
-        if (!destination) {
+        if (!destination && !initialDestinationParam) { // Verifica também se não veio via parâmetro
           const destCoords = {
             latitude: coords.latitude + 0.001,
             longitude: coords.longitude + 0.001,
@@ -83,11 +80,12 @@ const Mapa = () => {
       } else {
         console.log("Origem inicial (via pesquisa ou existente):", origin);
         console.log("Destino inicial (via pesquisa ou existente):", destination);
+        console.log("Waypoints iniciais:", waypoints); // Log dos waypoints
       }
     }
 
     loadLocation();
-  }, [initialOriginParam, initialDestinationParam, useCurrentLocation, isOriginDragged, origin, destination]); // Adicione as dependências relevantes
+  }, [initialOriginParam, initialDestinationParam, initialWaypointsParam, useCurrentLocation, isOriginDragged, origin, destination]);
 
   // Atualiza localização da origem em tempo real SOMENTE se a origem for a localização do usuário
   // e se não foi arrastada manualmente.
@@ -95,7 +93,6 @@ const Mapa = () => {
     let subscription;
 
     async function watchLocation() {
-        // Apenas monitora se a origem é a localização atual E SE AINDA NÃO FOI ARRASTADA
         if (useCurrentLocation !== false && !isOriginDragged) {
             const { granted } = await requestForegroundPermissionsAsync();
             if (!granted) {
@@ -128,17 +125,17 @@ const Mapa = () => {
     };
   }, [useCurrentLocation, isOriginDragged]);
 
-  // Atualiza rota quando origem ou destino mudam
+  // Atualiza rota quando origem, destino ou waypoints mudam
   useEffect(() => {
     if (origin && destination) {
-      fetchRoute(origin, destination);
+      fetchRoute(origin, destination, waypoints); // Passa waypoints
     }
-  }, [origin, destination]);
+  }, [origin, destination, waypoints]); // Adiciona waypoints como dependência
 
   // Ajusta o zoom do mapa quando a rota ou os pontos mudam
   useEffect(() => {
     if (mapRef.current && origin && destination) {
-        const coordsToFit = [origin, destination];
+        const coordsToFit = [origin, destination, ...waypoints]; // Inclui waypoints no ajuste
         if (routeCoords.length > 0) {
           coordsToFit.push(...routeCoords);
         }
@@ -147,10 +144,17 @@ const Mapa = () => {
           animated: true,
         });
     }
-  }, [origin, destination, routeCoords]);
+  }, [origin, destination, waypoints, routeCoords]); // Adiciona waypoints como dependência
 
-  const fetchRoute = async (start, end) => {
+  // --- Função fetchRoute modificada para aceitar waypoints ---
+  const fetchRoute = async (start, end, intermediateWaypoints = []) => {
     try {
+      const allCoordinates = [
+        [start.longitude, start.latitude],
+        ...intermediateWaypoints.map(wp => [wp.longitude, wp.latitude]), // Mapeia waypoints
+        [end.longitude, end.latitude],
+      ];
+
       const response = await fetch(
         'https://api.openrouteservice.org/v2/directions/driving-car/geojson',
         {
@@ -160,10 +164,13 @@ const Mapa = () => {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            coordinates: [
-              [start.longitude, start.latitude],
-              [end.longitude, end.latitude],
-            ],
+            coordinates: allCoordinates, // Envia todas as coordenadas
+            // Você pode adicionar mais opções aqui se precisar, como "continue_straight"
+            // options: {
+            //   waypoints: {
+            //     continue_straight: [false, false] // Exemplo: não forçar linha reta nos waypoints
+            //   }
+            // }
           }),
         }
       );
@@ -177,12 +184,14 @@ const Mapa = () => {
         }));
         setRouteCoords(coords);
       } else {
+        console.warn("Rota não encontrada ou resposta inesperada:", data);
+        Alert.alert("Rota não encontrada para os pontos fornecidos.");
         setRouteCoords([]);
       }
 
     } catch (error) {
       console.error("Erro ao buscar rota:", error);
-      Alert.alert("Erro ao buscar rota.");
+      Alert.alert("Erro ao buscar rota. Verifique sua conexão e chave de API.");
       setRouteCoords([]);
     }
   };
@@ -192,7 +201,7 @@ const Mapa = () => {
     const newOrigin = { latitude, longitude };
     console.log("Origem movida:", newOrigin);
     setOrigin(newOrigin);
-    setIsOriginDragged(true); // Marca que a origem foi arrastada manualmente
+    setIsOriginDragged(true);
   };
 
   const handleDestinationDrag = (e) => {
@@ -225,10 +234,20 @@ const Mapa = () => {
             <Marker
               coordinate={origin}
               title="Sua Origem"
-              draggable // Permite arrastar
-              onDragEnd={handleOriginDrag} // Lida com o fim do arrasto
-              pinColor="gray"
+              draggable
+              onDragEnd={handleOriginDrag}
+              pinColor="red" // Mudei para vermelho para mais contraste com o cinza anterior
             />
+
+            {/* Marcadores de Waypoints (Paradas de Ônibus) */}
+            {waypoints.map((wp, index) => (
+              <Marker
+                key={`waypoint-${index}`} // Chave única é importante
+                coordinate={wp}
+                title={`Parada ${index + 1}`}
+                pinColor="orange" // Cor diferente para as paradas
+              />
+            ))}
 
             {/* Marcador de Destino */}
             <Marker
